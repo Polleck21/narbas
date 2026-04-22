@@ -1,8 +1,8 @@
 import { Router, type IRouter } from "express";
 import { db, productsTable, denominationsTable, ordersTable } from "@workspace/db";
 import { eq, sql } from "drizzle-orm";
-import { getPriceList, topUp, type DigiflazzProduct } from "../lib/digiflazz";
-import { logger } from "../lib/logger";
+import { getPriceList, topUp, type DigiflazzProduct } from "../lib/digiflazz.js";
+import { logger } from "../lib/logger.js";
 
 const router: IRouter = Router();
 

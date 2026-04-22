@@ -1,5 +1,5 @@
-import app from "./app";
-import { logger } from "./lib/logger";
+import app from "./app.js";
+import { logger } from "./lib/logger.js";
 
 const rawPort = process.env["PORT"];
 
@@ -9,17 +9,14 @@ if (!rawPort) {
   );
 }
 
-const port = Number(rawPort);
+const port = Number.parseInt(rawPort);
 
-if (Number.isNaN(port) || port <= 0) {
-  throw new Error(`Invalid PORT value: "${rawPort}"`);
+if (!Number.isInteger(port)) {
+  throw new Error(
+    `PORT environment variable must be an integer, got: ${rawPort}`,
+  );
 }
 
-app.listen(port, (err) => {
-  if (err) {
-    logger.error({ err }, "Error listening on port");
-    process.exit(1);
-  }
-
-  logger.info({ port }, "Server listening");
+app.listen(port, () => {
+  logger.info(`Server running at http://localhost:${port}`);
 });
