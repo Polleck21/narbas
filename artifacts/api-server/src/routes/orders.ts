@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type Request, type Response } from "express";
 import { db, ordersTable, productsTable, denominationsTable } from "@workspace/db";
 import { eq, desc, count, sum, sql } from "drizzle-orm";
 import crypto from "crypto";
@@ -8,7 +8,7 @@ import { logger } from "../lib/logger.js";
 
 const router: IRouter = Router();
 
-router.post("/orders", async (req, res): Promise<void> => {
+router.post("/orders", async (req: Request, res: Response): Promise<void> => {
   const parsed = CreateOrderBody.safeParse(req.body);
   if (!parsed.success) {
     res.status(400).json({ error: parsed.error.message });

@@ -1,11 +1,11 @@
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type Request, type Response } from "express";
 import { db, productsTable, denominationsTable } from "@workspace/db";
 import { eq, and } from "drizzle-orm";
 import { GetDenominationsParams } from "@workspace/api-zod";
 
 const router: IRouter = Router();
 
-router.get("/products", async (req, res): Promise<void> => {
+router.get("/products", async (req: Request, res: Response): Promise<void> => {
   const products = await db
     .select()
     .from(productsTable)
@@ -13,7 +13,7 @@ router.get("/products", async (req, res): Promise<void> => {
   res.json(products);
 });
 
-router.get("/products/:gameCode/denominations", async (req, res): Promise<void> => {
+router.get("/products/:gameCode/denominations", async (req: Request, res: Response): Promise<void> => {
   const raw = Array.isArray(req.params.gameCode) ? req.params.gameCode[0] : req.params.gameCode;
   const params = GetDenominationsParams.safeParse({ gameCode: raw });
   if (!params.success) {

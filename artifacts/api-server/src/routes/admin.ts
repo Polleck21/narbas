@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type Request, type Response } from "express";
 import { db, productsTable, denominationsTable, ordersTable } from "@workspace/db";
 import { eq, sql } from "drizzle-orm";
 import { getPriceList, topUp, type DigiflazzProduct } from "../lib/digiflazz.js";
@@ -25,7 +25,7 @@ function pickCategory(brand: string): string {
   return "Games";
 }
 
-router.post("/admin/sync-digiflazz", async (req, res): Promise<void> => {
+router.post("/admin/sync-digiflazz", async (req: Request, res: Response): Promise<void> => {
   // Simple bearer-token auth. Set ADMIN_TOKEN env var to protect this endpoint.
   if (!ADMIN_TOKEN) {
     res.status(500).json({ error: "ADMIN_TOKEN env var is not configured" });
@@ -138,7 +138,7 @@ router.post("/admin/sync-digiflazz", async (req, res): Promise<void> => {
 
 // Manual override: set order payment status (and optionally trigger Digiflazz top-up)
 // Body: { status: "paid" | "pending" | "failed" | "settlement" | "expire", triggerTopup?: boolean }
-router.post("/admin/orders/:orderId/status", async (req, res): Promise<void> => {
+router.post("/admin/orders/:orderId/status", async (req: Request, res: Response): Promise<void> => {
   if (!ADMIN_TOKEN) {
     res.status(500).json({ error: "ADMIN_TOKEN env var is not configured" });
     return;

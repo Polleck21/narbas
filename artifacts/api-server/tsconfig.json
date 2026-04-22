@@ -6,7 +6,8 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "target": "es2022",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["node", "express"]
   },
   "include": ["src"],
   "references": [

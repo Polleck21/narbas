@@ -1,4 +1,4 @@
-import { Router, type IRouter } from "express";
+import { Router, type IRouter, type Request, type Response } from "express";
 import healthRouter from "./health.js";
 import productsRouter from "./products.js";
 import ordersRouter from "./orders.js";
